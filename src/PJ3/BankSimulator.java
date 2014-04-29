@@ -42,7 +42,6 @@ class BankSimulator {
         if (scanThis.hasNextInt()) {
             temp = scanThis.nextInt();
             if (temp < 10000 && temp > 0){
-                System.out.println("in if statementfinally");
                 simulationTime = temp;
             }
         }
@@ -50,19 +49,30 @@ class BankSimulator {
         System.out.println("Enter maximum transaction time of customers : ");
         if (scanThis.hasNextInt()) {
             temp = scanThis.nextInt();
-            transactionTime = scanThis.nextInt();
+            if (temp <= 500 && temp > 0){
+                maxTransactionTime = temp;
+            }
         }
         System.out.println("Enter chances (0% < & <= 100%) of new customer : ");
-        if (scanThis.nextInt() <= 100 && scanThis.nextInt() > 0) {
-            chancesOfArrival = scanThis.nextInt();
+        if (scanThis.hasNextInt()) {
+            temp = scanThis.nextInt();
+            if (temp <= 100 && temp > 0){
+                chancesOfArrival = temp;
+            }
         }
         System.out.println("Enter the number of tellers : ");
-        if (scanThis.nextInt() <= 10 && scanThis.nextInt() > 0) {
-            numTellers = scanThis.nextInt();
+        if (scanThis.hasNextInt()) {
+            temp = scanThis.nextInt();
+            if (temp <= 10 && temp > 0){
+                numTellers = temp;
+            }
         }
         System.out.println("Enter customer queue limit : ");
-        if (scanThis.nextInt() <= 50 && scanThis.nextInt() > 0) {
-            customerQLimit = scanThis.nextInt();
+        if (scanThis.hasNextInt()) {
+            temp = scanThis.nextInt();
+            if (temp <= 50 && temp > 0){
+                customerQLimit = temp;
+            }
         }
 
         System.out.println("Enter 1/0 to get data from file/Random : ");
@@ -73,18 +83,18 @@ class BankSimulator {
                 getCustomerData(fName);
             }
         } else {
-            dataSource = 0;
-            getCustomerData(dataSource);
+            getCustomerData();
         }
 
         //
     }
 
-    // Method used to get customer data file from random number generator
-    private void getCustomerData(int selection) {
+    // Method used to get customer data from random number generator
+    private void getCustomerData() {
         // get next customer data : from file or random number generator
         // set anyNewArrival and transactionTime
-        // add statements
+        anyNewArrival = ((dataRandom.nextInt(100)+1) <= chancesOfArrival);
+        transactionTime = dataRandom.nextInt(maxTransactionTime)+1;
     }
 
     // Method used to get customer data from file name
